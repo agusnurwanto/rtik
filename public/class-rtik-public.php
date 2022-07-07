@@ -103,4 +103,25 @@ class Rtik_Public {
 
 	}
 
+	public function input_data_peserta(){
+		if(!empty($_GET) && !empty($_GET['post'])){
+			return '';
+		}
+		require_once RTIK_PLUGIN_PATH . 'public/partials/rtik-input-data-peserta.php';
+	}
+
+	public function input_data_pelatihan(){
+		if(!empty($_GET) && !empty($_GET['post'])){
+			return '';
+		}
+		require_once RTIK_PLUGIN_PATH . 'public/partials/rtik-input-data-pelatihan.php';
+	}
+
+	public function input_anggota_rtik(){
+		if(!empty($_GET) && !empty($_GET['post'])){
+			return '';
+		}
+		require_once RTIK_PLUGIN_PATH . 'public/partials/rtik-input-anggota.php';
+	}
+
 }

@@ -20,6 +20,9 @@
  * @subpackage Rtik/admin
  * @author     Agus Nurwanto <agusnurwantomuslim@gmail.com>
  */
+use Carbon_Fields\Container;
+use Carbon_Fields\Field;
+
 class Rtik_Admin {
 
 	/**
@@ -101,6 +104,86 @@ class Rtik_Admin {
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/rtik-admin.js', array( 'jquery' ), $this->version, false );
 
+	}
+
+	public function crb_attach_rtik_options() {
+		$input_data_peserta = $this->functions->generatePage(array(
+			'nama_page' => 'Input data peserta pelatihan',
+			'content' => '[input_data_peserta]',
+        	'show_header' => 1,
+			'post_status' => 'private'
+		));
+		$input_data_pelatihan = $this->functions->generatePage(array(
+			'nama_page' => 'Input data pelatihan',
+			'content' => '[input_data_pelatihan]',
+        	'show_header' => 1,
+			'post_status' => 'private'
+		));
+		$input_anggota_rtik = $this->functions->generatePage(array(
+			'nama_page' => 'Input anggota RTIK',
+			'content' => '[input_anggota_rtik]',
+        	'show_header' => 1,
+			'post_status' => 'private'
+		));
+		$basic_options_container = Container::make( 'theme_options', __( 'RTIK' ) )
+			->set_page_menu_position( 4 )
+	        ->add_fields( array(
+	        	Field::make( 'html', 'crb_rtik_link' )
+	            	->set_html( '
+	            	<h2><b>HALAMAN SISTEM RTIK</b></h2>
+	            	<ul>
+						<li><b>Input data pelatihan: <a target="_blank" href="'.$input_data_pelatihan['url'].'">'.$input_data_pelatihan['title'].'</a></b></li>
+						<li><b>Input peserta pelatihan: <a target="_blank" href="'.$input_data_peserta['url'].'">'.$input_data_peserta['title'].'</a></b></li>
+						<li><b>Input data anggota RTIK: <a target="_blank" href="'.$input_anggota_rtik['url'].'">'.$input_anggota_rtik['title'].'</a></b></li>
+	            	</ul>
+            	' )
+            ) );
+
+	}
+
+	public function create_posttype_rtik(){
+	    register_post_type( 'pelatihan',
+	        array(
+	            'labels' => array(
+	                'name' => __( 'Data Pelatihan' ),
+	                'singular_name' => __( 'Data Pelatihan' )
+	            ),
+	            'public' => true,
+	            'has_archive' => true,
+	            'rewrite' => array('slug' => 'pelatihan'),
+	            'show_in_rest' => true,
+	            'show_in_menu' => true,
+	            'menu_position' => 5
+	        )
+	    );
+	    register_post_type( 'peserta_pelatihan',
+	        array(
+	            'labels' => array(
+	                'name' => __( 'Peserta Pelatihan' ),
+	                'singular_name' => __( 'Peserta Pelatihan' )
+	            ),
+	            'public' => true,
+	            'has_archive' => true,
+	            'rewrite' => array('slug' => 'peserta_pelatihan'),
+	            'show_in_rest' => true,
+	            'show_in_menu' => true,
+	            'menu_position' => 5
+	        )
+	    );
+	    register_post_type( 'anggota_rtik',
+	        array(
+	            'labels' => array(
+	                'name' => __( 'Anggota RTIK' ),
+	                'singular_name' => __( 'Anggota RTIK' )
+	            ),
+	            'public' => true,
+	            'has_archive' => true,
+	            'rewrite' => array('slug' => 'anggota_rtik'),
+	            'show_in_rest' => true,
+	            'show_in_menu' => true,
+	            'menu_position' => 5
+	        )
+	    );
 	}
 
 }
