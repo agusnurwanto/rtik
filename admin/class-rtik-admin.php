@@ -128,6 +128,8 @@ class Rtik_Admin {
 		$basic_options_container = Container::make( 'theme_options', __( 'RTIK' ) )
 			->set_page_menu_position( 4 )
 	        ->add_fields( array(
+	            Field::make( 'text', 'crb_rtik_apikey', 'APIKEY RTIK' )
+	            	->set_default_value($this->functions->generateRandomString()),
 	        	Field::make( 'html', 'crb_rtik_link' )
 	            	->set_html( '
 	            	<h2><b>HALAMAN SISTEM RTIK</b></h2>

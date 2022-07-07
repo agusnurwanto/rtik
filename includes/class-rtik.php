@@ -181,10 +181,14 @@ class Rtik {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		
+		$this->loader->add_action('wp_ajax_simpan_pelatihan',  $plugin_public, 'simpan_pelatihan');
+		$this->loader->add_action('wp_ajax_simpan_peserta',  $plugin_public, 'simpan_peserta');
 
 		add_shortcode('input_data_pelatihan',  array($plugin_public, 'input_data_pelatihan'));
 		add_shortcode('input_data_peserta',  array($plugin_public, 'input_data_peserta'));
 		add_shortcode('input_anggota_rtik',  array($plugin_public, 'input_anggota_rtik'));
+		add_shortcode('data_pelatihan',  array($plugin_public, 'data_pelatihan'));
 	}
 
 	/**
