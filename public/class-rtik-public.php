@@ -77,6 +77,9 @@ class Rtik_Public {
 		 */
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/rtik-public.css', array(), $this->version, 'all' );
+		wp_enqueue_style($this->plugin_name . 'bootstrap', plugin_dir_url(__FILE__) . 'css/bootstrap.min.css', array(), $this->version, 'all');
+		wp_enqueue_style($this->plugin_name . 'select2', plugin_dir_url(__FILE__) . 'css/select2.min.css', array(), $this->version, 'all');
+		wp_enqueue_style($this->plugin_name . 'datatables', plugin_dir_url(__FILE__) . 'css/datatables.min.css', array(), $this->version, 'all');
 
 	}
 
@@ -100,6 +103,9 @@ class Rtik_Public {
 		 */
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/rtik-public.js', array( 'jquery' ), $this->version, false );
+		wp_localize_script( $this->plugin_name, 'ajax', array(
+		    'url' => admin_url( 'admin-ajax.php' )
+		));
 
 	}
 

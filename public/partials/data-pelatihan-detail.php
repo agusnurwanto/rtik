@@ -23,7 +23,7 @@ foreach($peserta_all as $peserta){
     $alamat_peserta = get_post_meta($peserta['id_peserta'], 'meta_alamat', true);
     $meta_email = get_post_meta($peserta['id_peserta'], 'meta_email', true);
     $meta_usaha = get_post_meta($peserta['id_peserta'], 'meta_usaha', true);
-    $nama_peserta .= ' | '.$meta_email;
+    // $nama_peserta .= ' | '.$meta_email;
     $terpilih = '';
     if($peserta['lolos'] == 1){
         $terpilih = 'Iya';
