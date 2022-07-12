@@ -1,28 +1,28 @@
 <?php
 global $post;
 global $wpdb;
-$judul = get_post_meta($post->ID, 'meta_judul', true);
-$materi = get_post_meta($post->ID, 'meta_materi', true);
-$narasumber = get_post_meta($post->ID, 'meta_narasumber', true);
-$waktu = get_post_meta($post->ID, 'meta_waktu', true);
-$lokasi = get_post_meta($post->ID, 'meta_lokasi', true);
-$pamflet = get_post_meta($post->ID, 'meta_pamflet', true);
-$deskripsi = get_post_meta($post->ID, 'meta_deskripsi', true);
+$judul = get_post_meta($post->ID, '_meta_judul', true);
+$materi = get_post_meta($post->ID, '_meta_materi', true);
+$narasumber = get_post_meta($post->ID, '_meta_narasumber', true);
+$waktu = get_post_meta($post->ID, '_meta_waktu', true);
+$lokasi = get_post_meta($post->ID, '_meta_lokasi', true);
+$pamflet = get_post_meta($post->ID, '_meta_pamflet', true);
+$deskripsi = get_post_meta($post->ID, '_meta_deskripsi', true);
 $peserta_all = $wpdb->get_results('
     select 
         * 
     from rtik_peserta_pelatihan 
     where id_pelatihan='.$post->ID.'
-    order by lolos DESC, waktu_daftar ASC, waktu_daftar_ulang ASC', ARRAY_A);
+    order by lolos DESC, waktu_daftar_ulang ASC, waktu_daftar ASC', ARRAY_A);
 $table_pendaftar = '';
 $no = 0;
 foreach($peserta_all as $peserta){
     $no++;
     $data_peserta = get_post($peserta['id_peserta']);
-    $nama_peserta = get_post_meta($peserta['id_peserta'], 'meta_nama', true);
-    $alamat_peserta = get_post_meta($peserta['id_peserta'], 'meta_alamat', true);
-    $meta_email = get_post_meta($peserta['id_peserta'], 'meta_email', true);
-    $meta_usaha = get_post_meta($peserta['id_peserta'], 'meta_usaha', true);
+    $nama_peserta = get_post_meta($peserta['id_peserta'], '_meta_nama', true);
+    $alamat_peserta = get_post_meta($peserta['id_peserta'], '_meta_alamat', true);
+    $meta_email = get_post_meta($peserta['id_peserta'], '_meta_email', true);
+    $meta_usaha = get_post_meta($peserta['id_peserta'], '_meta_usaha', true);
     // $nama_peserta .= ' | '.$meta_email;
     $terpilih = '';
     if($peserta['lolos'] == 1){

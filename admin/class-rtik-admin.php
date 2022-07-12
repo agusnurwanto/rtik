@@ -141,6 +141,34 @@ class Rtik_Admin {
             	' )
             ) );
 
+	    Container::make( 'post_meta', __( 'Detail Pelatihan' ) )
+		    ->where( 'post_type', '=', 'pelatihan' )
+	        ->add_fields( array(
+	            Field::make( 'text', 'meta_judul', 'Judul Pelatihan' ),
+	            Field::make( 'text', 'meta_materi', 'Judul Materi' ),
+	            Field::make( 'text', 'meta_narasumber', 'Narasumber' ),
+	            Field::make( 'date_time', 'meta_waktu', 'Waktu Pelaksanaan' ),
+	            Field::make( 'text', 'meta_lokasi', 'Lokasi' ),
+	            Field::make( 'rich_text', 'meta_pamflet', 'Pamflet / Poster' ),
+	            Field::make( 'rich_text', 'meta_deskripsi', 'Deskripsi' )
+	            	->set_help_text('Deskripsi pelatihan atau keterangan tambahan.')
+	        ) );
+
+	    Container::make( 'post_meta', __( 'Detail Peserta' ) )
+		    ->where( 'post_type', '=', 'peserta_pelatihan' )
+	        ->add_fields( array(
+	            Field::make( 'text', 'meta_nama', 'Nama Peserta' ),
+	            Field::make( 'text', 'meta_wa', 'Nomor WA' ),
+	            Field::make( 'text', 'meta_email', 'Email' ),
+	            Field::make( 'text', 'meta_usaha', 'Usaha' ),
+	            Field::make( 'textarea', 'meta_alamat', 'Alamat' ),
+	            Field::make( 'textarea', 'meta_harapan', 'Harapan' ),
+	            Field::make( 'textarea', 'meta_saran', 'Kritik / Saran' ),
+	            Field::make( 'text', 'meta_pekerjaan', 'Pekerjaan' ),
+	            Field::make( 'date', 'meta_tangal_lahir', 'Tanggal Lahir' ),
+	            Field::make( 'text', 'meta_pengalaman', 'Pengalaman' ),
+	            Field::make( 'text', 'meta_laptop', 'Punya Laptop' )
+	        ) );
 	}
 
 	public function create_posttype_rtik(){

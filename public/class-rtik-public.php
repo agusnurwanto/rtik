@@ -185,13 +185,13 @@ class Rtik_Public {
 				}
 
 				if(!empty($post_id)){
-					update_post_meta($post_id, 'meta_judul', $_POST['judul']);
-					update_post_meta($post_id, 'meta_materi', $_POST['materi']);
-					update_post_meta($post_id, 'meta_narasumber', $_POST['narasumber']);
-					update_post_meta($post_id, 'meta_waktu', $_POST['waktu']);
-					update_post_meta($post_id, 'meta_lokasi', $_POST['lokasi']);
-					update_post_meta($post_id, 'meta_pamflet', $_POST['pamflet']);
-					update_post_meta($post_id, 'meta_deskripsi', $_POST['deskripsi']);
+					update_post_meta($post_id, '_meta_judul', $_POST['judul']);
+					update_post_meta($post_id, '_meta_materi', $_POST['materi']);
+					update_post_meta($post_id, '_meta_narasumber', $_POST['narasumber']);
+					update_post_meta($post_id, '_meta_waktu', $_POST['waktu']);
+					update_post_meta($post_id, '_meta_lokasi', $_POST['lokasi']);
+					update_post_meta($post_id, '_meta_pamflet', $_POST['pamflet']);
+					update_post_meta($post_id, '_meta_deskripsi', $_POST['deskripsi']);
 				}else{
 					$ret['status'] = 'error';
 					$ret['message'] = 'ID post aset tidak ditemukan!';
@@ -285,37 +285,37 @@ class Rtik_Public {
 					}
 
 					if(!empty($peserta->nama)){
-						update_post_meta($post_id, 'meta_nama', $peserta->nama);
+						update_post_meta($post_id, '_meta_nama', $peserta->nama);
 					}
 					if(!empty($peserta->wa)){
-						update_post_meta($post_id, 'meta_wa', $peserta->wa);
+						update_post_meta($post_id, '_meta_wa', $peserta->wa);
 					}
 					if(!empty($peserta->email)){
-						update_post_meta($post_id, 'meta_email', $peserta->email);
+						update_post_meta($post_id, '_meta_email', $peserta->email);
 					}
 					if(!empty($peserta->alamat)){
-						update_post_meta($post_id, 'meta_alamat', $peserta->alamat);
+						update_post_meta($post_id, '_meta_alamat', $peserta->alamat);
 					}
 					if(!empty($peserta->pekerjaan)){
-						update_post_meta($post_id, 'meta_pekerjaan', $peserta->pekerjaan);
+						update_post_meta($post_id, '_meta_pekerjaan', $peserta->pekerjaan);
 					}
 					if(!empty($peserta->tangal_lahir)){
-						update_post_meta($post_id, 'meta_tangal_lahir', $peserta->tangal_lahir);
+						update_post_meta($post_id, '_meta_tangal_lahir', $peserta->tangal_lahir);
 					}
 					if(!empty($peserta->pengalaman)){
-						update_post_meta($post_id, 'meta_pengalaman', $peserta->pengalaman);
+						update_post_meta($post_id, '_meta_pengalaman', $peserta->pengalaman);
 					}
 					if(!empty($peserta->harapan)){
-						update_post_meta($post_id, 'meta_harapan', $peserta->harapan);
+						update_post_meta($post_id, '_meta_harapan', $peserta->harapan);
 					}
 					if(!empty($peserta->usaha)){
-						update_post_meta($post_id, 'meta_usaha', $peserta->usaha);
+						update_post_meta($post_id, '_meta_usaha', $peserta->usaha);
 					}
 					if(!empty($peserta->laptop)){
-						update_post_meta($post_id, 'meta_laptop', $peserta->laptop);
+						update_post_meta($post_id, '_meta_laptop', $peserta->laptop);
 					}
 					if(!empty($peserta->saran)){
-						update_post_meta($post_id, 'meta_saran', $peserta->saran);
+						update_post_meta($post_id, '_meta_saran', $peserta->saran);
 					}
 				}
 			} else {
