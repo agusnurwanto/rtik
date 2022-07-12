@@ -64,6 +64,7 @@ foreach($query->posts as $post){
                 <label class="col-md-2 col-form-label">Aksi</label>
                 <div class="col-md-10">
                     <a onclick="simpan_data(); return false;" href="#" class="btn btn-primary">Simpan</a>
+                    <button type="reset" class="btn btn-warning">Kosongkan Form</button>
                 </div>
             </div>
         </form>

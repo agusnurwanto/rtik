@@ -218,7 +218,7 @@ class Rtik_Public {
 				$peserta_all = json_decode(stripslashes($_POST['data_excel']));
 				$id_pelatihan = $_POST['id_pelatihan'];
 				foreach($peserta_all as $peserta){
-					$judul = $peserta->email;
+					$judul = trim($peserta->email);
 					$post_type = 'peserta_pelatihan';
 					$pelatihan_existing = array();
 					$get_title = get_page_by_title( $judul, OBJECT, $post_type );
@@ -235,29 +235,82 @@ class Rtik_Public {
 						$post_id = $link['id'];
 					}else{
 						$post_id = $get_title->ID;
-						$pelatihan_existing = get_post_meta($post_id, 'meta_pelatihan');
-						$cek = false;
-						foreach($pelatihan_existing as $pelatihan){
-							if($id_pelatihan == $pelatihan['id']){
-								$cek = true;
-							}
-						}
-						if(!$cek){
-							$pelatihan_existing[] = array(
-								'id' => $id_pelatihan,
-								'timestamp' => $peserta->timestamp,
-							);
-						}
 					}
-					update_post_meta($post_id, 'meta_pelatihan', $pelatihan_existing);
-					update_post_meta($post_id, 'meta_nama', $peserta->nama);
-					update_post_meta($post_id, 'meta_wa', $peserta->wa);
-					update_post_meta($post_id, 'meta_email', $peserta->email);
-					update_post_meta($post_id, 'meta_alamat', $peserta->alamat);
-					update_post_meta($post_id, 'meta_pekerjaan', $peserta->pekerjaan);
-					update_post_meta($post_id, 'meta_tangal_lahir', $peserta->tangal_lahir);
-					update_post_meta($post_id, 'meta_pengalaman', $peserta->pengalaman);
-					update_post_meta($post_id, 'meta_harapan', $peserta->harapan);
+					$pelatihan_existing = $wpdb->get_results($wpdb->prepare('
+						select 
+							id 
+						from rtik_peserta_pelatihan 
+						where id_pelatihan=%d
+							and id_peserta=%d',
+						$id_pelatihan,
+						$post_id,
+					), ARRAY_A);
+					$opsi = array(
+						'id_pelatihan' => $id_pelatihan,
+						'id_peserta' => $post_id
+					);
+					if(!empty($peserta->timestamp)){
+						$waktu_daftar = date('Y-m-d H:i:s', strtotime($peserta->timestamp));
+						$opsi['waktu_daftar'] = $waktu_daftar;
+					}
+					if(!empty($peserta->timestamp_daftar_ulang)){
+						$waktu_daftar_ulang = date('Y-m-d H:i:s', strtotime($peserta->timestamp_daftar_ulang));
+						$opsi['waktu_daftar_ulang'] = $waktu_daftar_ulang;
+					}
+					if(!empty($peserta->konfirmasi_hadir)){
+						$opsi['konfirmasi_hadir'] = $peserta->konfirmasi_hadir;
+					}
+					if(!empty($peserta->lolos)){
+						$opsi['lolos'] = $peserta->lolos;
+					}
+					if(!empty($peserta->harapan)){
+						$opsi['harapan'] = $peserta->harapan;
+					}
+					if(!empty($peserta->saran)){
+						$opsi['saran'] = $peserta->saran;
+					}
+
+					if(empty($pelatihan_existing)){
+						$wpdb->insert('rtik_peserta_pelatihan', $opsi);
+					}else{
+						$wpdb->update('rtik_peserta_pelatihan', $opsi, array(
+							'id' => $pelatihan_existing[0]['id']
+						));
+					}
+
+					if(!empty($peserta->nama)){
+						update_post_meta($post_id, 'meta_nama', $peserta->nama);
+					}
+					if(!empty($peserta->wa)){
+						update_post_meta($post_id, 'meta_wa', $peserta->wa);
+					}
+					if(!empty($peserta->email)){
+						update_post_meta($post_id, 'meta_email', $peserta->email);
+					}
+					if(!empty($peserta->alamat)){
+						update_post_meta($post_id, 'meta_alamat', $peserta->alamat);
+					}
+					if(!empty($peserta->pekerjaan)){
+						update_post_meta($post_id, 'meta_pekerjaan', $peserta->pekerjaan);
+					}
+					if(!empty($peserta->tangal_lahir)){
+						update_post_meta($post_id, 'meta_tangal_lahir', $peserta->tangal_lahir);
+					}
+					if(!empty($peserta->pengalaman)){
+						update_post_meta($post_id, 'meta_pengalaman', $peserta->pengalaman);
+					}
+					if(!empty($peserta->harapan)){
+						update_post_meta($post_id, 'meta_harapan', $peserta->harapan);
+					}
+					if(!empty($peserta->usaha)){
+						update_post_meta($post_id, 'meta_usaha', $peserta->usaha);
+					}
+					if(!empty($peserta->laptop)){
+						update_post_meta($post_id, 'meta_laptop', $peserta->laptop);
+					}
+					if(!empty($peserta->saran)){
+						update_post_meta($post_id, 'meta_saran', $peserta->saran);
+					}
 				}
 			} else {
 				$ret['status'] = 'error';
