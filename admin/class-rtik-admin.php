@@ -216,4 +216,21 @@ class Rtik_Admin {
 	    );
 	}
 
+	function disable_shortlink($post_types){
+		$allowed_post_types = array(
+			'post',
+			'page',
+			'product', // https://wordpress.org/plugins/woocommerce
+			'download', // https://wordpress.org/plugins/easy-digital-downloads
+			'event', // https://wordpress.org/plugins/events-manager/
+			'tribe_events', // https://wordpress.org/plugins/the-events-calendar/
+			'docs', // https://wordpress.org/plugins/betterdocs/
+			'kbe_knowledgebase', // https://wordpress.org/plugins/wp-knowledgebase/
+			'mec-events', // https://wordpress.org/plugins/modern-events-calendar-lite/
+			'kruchprodukte', // https://wordpress.org/support/topic/custom-posts-type-2/
+		);
+		// return $allowed_post_types;
+		return array();
+	}
+
 }

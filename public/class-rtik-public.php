@@ -154,7 +154,9 @@ class Rtik_Public {
 					$ret['message'] = 'waktu tidak boleh kosong!';
 					die(json_encode($ret));
 				}
-				$judul = $_POST['waktu'].' | '.$_POST['judul'];
+				$hari = explode('T', $_POST['waktu']);
+				$_POST['waktu'] = $hari[0].' '.$hari[1];
+				$judul = $_POST['judul'].' | '.$hari[0];
 				$post_type = 'pelatihan';
 				$options = array(
 					'nama_page' => $judul,

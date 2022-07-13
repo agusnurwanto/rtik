@@ -165,6 +165,7 @@ class Rtik {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action('carbon_fields_register_fields', $plugin_admin, 'crb_attach_rtik_options');
 		$this->loader->add_action('init', $plugin_admin, 'create_posttype_rtik');
+		$this->loader->add_filter('kc_us_allowed_post_types_to_generate_short_links', $plugin_admin, 'disable_shortlink', 999, 1);
 
 	}
 
