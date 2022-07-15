@@ -107,6 +107,13 @@ class Rtik_Admin {
 	}
 
 	public function crb_attach_rtik_options() {
+		$data_pelatihan = $this->functions->generatePage(array(
+			'nama_page' => 'Daftar Pelatihan',
+			'content' => '[daftar_pelatihan]',
+        	'show_header' => 1,
+        	'no_key' => 1,
+			'post_status' => 'publish'
+		));
 		$input_data_peserta = $this->functions->generatePage(array(
 			'nama_page' => 'Input data peserta pelatihan',
 			'content' => '[input_data_peserta]',
@@ -137,6 +144,7 @@ class Rtik_Admin {
 						<li><b>Input data pelatihan: <a target="_blank" href="'.$input_data_pelatihan['url'].'">'.$input_data_pelatihan['title'].'</a></b></li>
 						<li><b>Input peserta pelatihan: <a target="_blank" href="'.$input_data_peserta['url'].'">'.$input_data_peserta['title'].'</a></b></li>
 						<li><b>Input data anggota RTIK: <a target="_blank" href="'.$input_anggota_rtik['url'].'">'.$input_anggota_rtik['title'].'</a></b></li>
+						<li><b>Daftar Pelatihan: <a target="_blank" href="'.$data_pelatihan['url'].'">'.$data_pelatihan['title'].'</a></b></li>
 	            	</ul>
             	' )
             ) );

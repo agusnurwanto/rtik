@@ -137,6 +137,13 @@ class Rtik_Public {
 		require_once RTIK_PLUGIN_PATH . 'public/partials/data-pelatihan-detail.php';
 	}
 
+	public function daftar_pelatihan(){
+		if(!empty($_GET) && !empty($_GET['post'])){
+			return '';
+		}
+		require_once RTIK_PLUGIN_PATH . 'public/partials/rtik-daftar-pelatihan.php';
+	}
+
 	public function simpan_pelatihan(){
 		global $wpdb;
 		$ret = array(
@@ -155,7 +162,7 @@ class Rtik_Public {
 					die(json_encode($ret));
 				}
 				$hari = explode('T', $_POST['waktu']);
-				$_POST['waktu'] = $hari[0].' '.$hari[1];
+				$_POST['waktu'] = $hari[0].' '.$hari[1].':00';
 				$judul = $_POST['judul'].' | '.$hari[0];
 				$post_type = 'pelatihan';
 				$options = array(
@@ -257,13 +264,55 @@ class Rtik_Public {
 						'id_pelatihan' => $id_pelatihan,
 						'id_peserta' => $post_id
 					);
-					if(!empty($peserta->timestamp)){
-						$waktu_daftar = date('Y-m-d H:i:s', strtotime($peserta->timestamp));
-						$opsi['waktu_daftar'] = $waktu_daftar;
-					}
 					if(!empty($peserta->timestamp_daftar_ulang)){
 						$waktu_daftar_ulang = date('Y-m-d H:i:s', strtotime($peserta->timestamp_daftar_ulang));
 						$opsi['waktu_daftar_ulang'] = $waktu_daftar_ulang;
+					}
+					if(!empty($peserta->timestamp)){
+						$waktu_daftar = date('Y-m-d H:i:s', strtotime($peserta->timestamp));
+						$opsi['waktu_daftar'] = $waktu_daftar;
+					}else{
+						$waktu_daftar = date('Y-m-d H:i:s');
+						if(!empty($opsi['waktu_daftar_ulang'])){
+							$waktu_daftar = $opsi['waktu_daftar_ulang'];
+						}
+						$opsi['waktu_daftar'] = $waktu_daftar;
+						if(empty($peserta->nama)){
+							$peserta->nama = get_post_meta($post_id, '_meta_nama', true);
+						}
+						if(empty($peserta->wa)){
+							$peserta->wa = get_post_meta($post_id, '_meta_wa', true);
+						}
+						if(empty($peserta->email)){
+							$peserta->email = get_post_meta($post_id, '_meta_email', true);
+						}
+						if(empty($peserta->alamat)){
+							$peserta->alamat = get_post_meta($post_id, '_meta_alamat', true);
+						}
+						if(empty($peserta->pekerjaan)){
+							$peserta->pekerjaan = get_post_meta($post_id, '_meta_pekerjaan', true);
+						}
+						if(empty($peserta->tangal_lahir)){
+							$peserta->tangal_lahir = get_post_meta($post_id, '_meta_tangal_lahir', true);
+						}
+						if(empty($peserta->pengalaman)){
+							$peserta->pengalaman = get_post_meta($post_id, '_meta_pengalaman', true);
+						}
+						if(empty($peserta->harapan)){
+							$peserta->harapan = get_post_meta($post_id, '_meta_harapan', true);
+						}
+						if(empty($peserta->usaha)){
+							$peserta->usaha = get_post_meta($post_id, '_meta_usaha', true);
+						}
+						if(empty($peserta->laptop)){
+							$peserta->laptop = get_post_meta($post_id, '_meta_laptop', true);
+						}
+						if(empty($peserta->saran)){
+							$peserta->saran = get_post_meta($post_id, '_meta_saran', true);
+						}
+						if(empty($peserta->website)){
+							$peserta->website = get_post_meta($post_id, '_meta_website', true);
+						}
 					}
 					if(!empty($peserta->konfirmasi_hadir)){
 						$opsi['konfirmasi_hadir'] = $peserta->konfirmasi_hadir;
@@ -318,6 +367,9 @@ class Rtik_Public {
 					}
 					if(!empty($peserta->saran)){
 						update_post_meta($post_id, '_meta_saran', $peserta->saran);
+					}
+					if(!empty($peserta->website)){
+						update_post_meta($post_id, '_meta_website', $peserta->website);
 					}
 				}
 			} else {

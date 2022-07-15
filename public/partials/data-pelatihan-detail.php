@@ -23,6 +23,7 @@ foreach($peserta_all as $peserta){
     $alamat_peserta = get_post_meta($peserta['id_peserta'], '_meta_alamat', true);
     $meta_email = get_post_meta($peserta['id_peserta'], '_meta_email', true);
     $meta_usaha = get_post_meta($peserta['id_peserta'], '_meta_usaha', true);
+    $meta_website = get_post_meta($peserta['id_peserta'], '_meta_website', true);
     // $nama_peserta .= ' | '.$meta_email;
     $terpilih = '';
     if($peserta['lolos'] == 1){
@@ -31,13 +32,11 @@ foreach($peserta_all as $peserta){
     $table_pendaftar .= '
         <tr id="'.$peserta['id'].'" id_peserta="'.$peserta['id_peserta'].'" id_pelatihan="'.$peserta['id_pelatihan'].'">
             <td class="text-center">'.$no.'</td>
-            <td class="text-center">'.$peserta['waktu_daftar'].'</td>
             <td>'.$nama_peserta.'</td>
             <td>'.$meta_usaha.'</td>
+            <td>'.$meta_website.'</td>
             <td>'.$alamat_peserta.'</td>
             <td>'.$peserta['harapan'].'</td>
-            <td class="text-center">'.$peserta['waktu_daftar_ulang'].'</td>
-            <td>'.$peserta['konfirmasi_hadir'].'</td>
             <td>'.$peserta['saran'].'</td>
             <td class="text-center">'.$terpilih.'</td>
         </tr>';
@@ -49,6 +48,9 @@ foreach($peserta_all as $peserta){
     }
     .hide, nav.post-navigation, header.entry-header {
         display: none;
+    }
+    td {
+        word-break: break-word;
     }
 </style>
 <div class="cetak">
@@ -90,16 +92,14 @@ foreach($peserta_all as $peserta){
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th class="text-center">No</th>
-                                    <th class="text-center" style="width: 100px;">Daftar</th>
-                                    <th class="text-center">Nama</th>
+                                    <th class="text-center" style="width: 45px;">No</th>
+                                    <th class="text-center" style="width: 145px;">Nama</th>
                                     <th class="text-center">Usaha</th>
+                                    <th class="text-center">Website</th>
                                     <th class="text-center">Alamat</th>
                                     <th class="text-center">Harapan</th>
-                                    <th class="text-center" style="width: 100px;">Daftar Ulang</th>
-                                    <th class="text-center">Konfirmasi Hadir</th>
                                     <th class="text-center">Saran</th>
-                                    <th class="text-center">Terpilih</th>
+                                    <th class="text-center" style="width: 85px;">Terpilih</th>
                                 </tr>
                             </thead>
                             <tbody>

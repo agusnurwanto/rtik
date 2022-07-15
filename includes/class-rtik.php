@@ -190,6 +190,7 @@ class Rtik {
 		add_shortcode('input_data_peserta',  array($plugin_public, 'input_data_peserta'));
 		add_shortcode('input_anggota_rtik',  array($plugin_public, 'input_anggota_rtik'));
 		add_shortcode('data_pelatihan',  array($plugin_public, 'data_pelatihan'));
+		add_shortcode('daftar_pelatihan',  array($plugin_public, 'daftar_pelatihan'));
 	}
 
 	/**
