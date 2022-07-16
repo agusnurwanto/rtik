@@ -186,11 +186,21 @@ class Rtik {
 		$this->loader->add_action('wp_ajax_simpan_pelatihan',  $plugin_public, 'simpan_pelatihan');
 		$this->loader->add_action('wp_ajax_simpan_peserta',  $plugin_public, 'simpan_peserta');
 
+		$this->loader->add_action('wp_ajax_get_data_peserta',  $plugin_public, 'get_data_peserta');
+		$this->loader->add_action('wp_ajax_nopriv_get_data_peserta',  $plugin_public, 'get_data_peserta');
+
+		$this->loader->add_action('wp_ajax_cari_detail_peserta',  $plugin_public, 'cari_detail_peserta');
+		$this->loader->add_action('wp_ajax_nopriv_cari_detail_peserta',  $plugin_public, 'cari_detail_peserta');
+
+		$this->loader->add_action('wp_ajax_simpan_peserta_satuan',  $plugin_public, 'simpan_peserta_satuan');
+		$this->loader->add_action('wp_ajax_nopriv_simpan_peserta_satuan',  $plugin_public, 'simpan_peserta_satuan');
+
 		add_shortcode('input_data_pelatihan',  array($plugin_public, 'input_data_pelatihan'));
 		add_shortcode('input_data_peserta',  array($plugin_public, 'input_data_peserta'));
 		add_shortcode('input_anggota_rtik',  array($plugin_public, 'input_anggota_rtik'));
 		add_shortcode('data_pelatihan',  array($plugin_public, 'data_pelatihan'));
 		add_shortcode('daftar_pelatihan',  array($plugin_public, 'daftar_pelatihan'));
+		add_shortcode('pendaftaran_peserta',  array($plugin_public, 'pendaftaran_peserta'));
 	}
 
 	/**

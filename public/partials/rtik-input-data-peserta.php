@@ -1,32 +1,6 @@
 <?php
 $api_key = get_option('_crb_rtik_apikey');
-$args = array(
-    'posts_per_page' => -1,
-    'post_type' => 'pelatihan',
-    'post_status' => 'publish',
-    'meta_query' => array(
-       array(
-           'key' => 'meta_judul',
-           'value' => array(''),
-           'compare' => 'NOT IN',
-       )
-   )
-);
-
-$data_pelatihan = array();
-$query = new WP_Query($args);
-foreach($query->posts as $post){
-    $data_pelatihan[$post->ID] = array(
-        'title' => get_the_title($post->ID),
-        'judul' => get_post_meta($post->ID, '_meta_judul', true),
-        'materi' => get_post_meta($post->ID, '_meta_materi', true),
-        'narasumber' => get_post_meta($post->ID, '_meta_narasumber', true),
-        'waktu' => get_post_meta($post->ID, '_meta_waktu', true),
-        'lokasi' => get_post_meta($post->ID, '_meta_lokasi', true),
-        'pamflet' => get_post_meta($post->ID, '_meta_pamflet', true),
-        'deskripsi' => get_post_meta($post->ID, '_meta_deskripsi', true)
-    );
-}
+$data_pelatihan = $this->get_pelatihan_aktif();
 ?>
 <style type="text/css">
     .warning {

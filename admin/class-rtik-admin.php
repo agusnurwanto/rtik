@@ -114,6 +114,13 @@ class Rtik_Admin {
         	'no_key' => 1,
 			'post_status' => 'publish'
 		));
+		$pendaftaran_peserta = $this->functions->generatePage(array(
+			'nama_page' => 'Pendaftaran Peserta Pelatihan',
+			'content' => '[pendaftaran_peserta]',
+        	'show_header' => 1,
+        	'no_key' => 1,
+			'post_status' => 'publish'
+		));
 		$input_data_peserta = $this->functions->generatePage(array(
 			'nama_page' => 'Input data peserta pelatihan',
 			'content' => '[input_data_peserta]',
@@ -145,6 +152,7 @@ class Rtik_Admin {
 						<li><b>Input peserta pelatihan: <a target="_blank" href="'.$input_data_peserta['url'].'">'.$input_data_peserta['title'].'</a></b></li>
 						<li><b>Input data anggota RTIK: <a target="_blank" href="'.$input_anggota_rtik['url'].'">'.$input_anggota_rtik['title'].'</a></b></li>
 						<li><b>Daftar Pelatihan: <a target="_blank" href="'.$data_pelatihan['url'].'">'.$data_pelatihan['title'].'</a></b></li>
+						<li><b>Pendaftaran peserta pelatihan: <a target="_blank" href="'.$pendaftaran_peserta['url'].'">'.$pendaftaran_peserta['title'].'</a></b></li>
 	            	</ul>
             	' )
             ) );

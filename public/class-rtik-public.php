@@ -144,6 +144,166 @@ class Rtik_Public {
 		require_once RTIK_PLUGIN_PATH . 'public/partials/rtik-daftar-pelatihan.php';
 	}
 
+	public function pendaftaran_peserta(){
+		if(!empty($_GET) && !empty($_GET['post'])){
+			return '';
+		}
+		require_once RTIK_PLUGIN_PATH . 'public/partials/rtik-pendaftaran-peserta.php';
+	}
+
+	public function get_data_peserta($cek_return){
+		global $wpdb;
+		$return = array(
+			'status' => 'success',
+			'results'	=> array(),
+			'pagination'=> array(
+			    "more" => false
+			)
+		);
+
+		if(!empty($_POST)){
+			if (!empty($_POST['api_key']) && $_POST['api_key'] == get_option( '_crb_rtik_apikey' )) {
+				$args = array(
+				    'posts_per_page' => 10,
+				    'paged' => $_POST['page'],
+				    'post_type' => 'peserta_pelatihan',
+				    'post_status' => 'publish',
+				);
+				if(!empty($_POST['search'])){
+				    $args['meta_query'] = array(
+				        'relation'  => 'OR',
+				        array(
+				           'key' => '_meta_nama',
+				           'value' => $_POST['search'],
+				           'compare' => 'LIKE',
+				        ),
+				        array(
+				           'key' => '_meta_alamat',
+				           'value' => $_POST['search'],
+				           'compare' => 'LIKE',
+				        )
+				   	);
+				};
+
+				$query = new WP_Query($args);
+				$return['sql'] = $wpdb->last_query;
+
+				foreach ($query->posts as $post) {
+		    		$return['results'][] = array(
+		    			'id' => $post->ID,
+		    			'text' => get_post_meta($post->ID, '_meta_nama', true).' | '.get_post_meta($post->ID, '_meta_alamat', true)
+		    		);
+		    	}
+
+				if(count($return['results']) > 0){
+					$return['pagination']['more'] = true;
+				}
+			}else{
+				$return['status'] = 'error';
+				$return['message'] ='Api Key tidak sesuai!';
+			}
+		}else{
+			$return['status'] = 'error';
+			$return['message'] ='Format tidak sesuai!';
+		}
+		if($cek_return){
+			return $return;
+		}else{
+			die(json_encode($return));
+		}
+	}
+
+	public function cari_detail_peserta($cek_return){
+		global $wpdb;
+		$return = array(
+			'status' => 'success',
+			'data'	=> array()
+		);
+
+		if(!empty($_POST)){
+			if (!empty($_POST['api_key']) && $_POST['api_key'] == get_option( '_crb_rtik_apikey' )) {
+				if(empty($_POST['id_peserta'])){
+					$return['status'] = 'error';
+					$return['message'] ='ID peserta tidak boleh kosong!';
+				}
+				if(empty($_POST['email'])){
+					$return['status'] = 'error';
+					$return['message'] ='Email tidak boleh kosong!';
+				}
+				if($return['status'] != 'error'){
+					$email_asli = get_post_meta($_POST['id_peserta'], '_meta_email', true);
+					if($email_asli == $_POST['email']){
+						$return['data']['id_peserta'] = $_POST['id_peserta'];
+						$return['data']['nama'] = get_post_meta($_POST['id_peserta'], '_meta_nama', true);
+						$return['data']['wa'] = get_post_meta($_POST['id_peserta'], '_meta_wa', true);
+						$return['data']['alamat'] = get_post_meta($_POST['id_peserta'], '_meta_alamat', true);
+						$return['data']['usaha'] = get_post_meta($_POST['id_peserta'], '_meta_usaha', true);
+						$return['data']['website'] = get_post_meta($_POST['id_peserta'], '_meta_website', true);
+						$return['data']['sosmed'] = get_post_meta($_POST['id_peserta'], '_meta_sosmed', true);
+						$return['data']['marketplace'] = get_post_meta($_POST['id_peserta'], '_meta_marketplace', true);
+						$return['data']['pekerjaan'] = get_post_meta($_POST['id_peserta'], '_meta_pekerjaan', true);
+						$return['data']['tanggal_lahir'] = get_post_meta($_POST['id_peserta'], '_meta_tanggal_lahir', true);
+						$return['data']['harapan'] = get_post_meta($_POST['id_peserta'], '_meta_harapan', true);
+						$return['data']['saran'] = get_post_meta($_POST['id_peserta'], '_meta_saran', true);
+						$return['data']['pengalaman'] = get_post_meta($_POST['id_peserta'], '_meta_pengalaman', true);
+						$return['data']['laptop'] = get_post_meta($_POST['id_peserta'], '_meta_laptop', true);
+						$return['data']['konfirmasi_hadir'] = get_post_meta($_POST['id_peserta'], '_meta_konfirmasi_hadir', true);
+					}else{
+						$return['status'] = 'error';
+						$return['message'] ='Email tidak ditemukan untuk ID peserta ini!';
+					}
+				}
+			}else{
+				$return['status'] = 'error';
+				$return['message'] ='Api Key tidak sesuai!';
+			}
+		}else{
+			$return['status'] = 'error';
+			$return['message'] ='Format tidak sesuai!';
+		}
+		if($cek_return){
+			return $return;
+		}else{
+			die(json_encode($return));
+		}
+	}
+
+	public function get_pelatihan_aktif(){
+		$args = array(
+		    'posts_per_page' => -1,
+		    'post_type' => 'pelatihan',
+		    'post_status' => 'publish',
+		    'meta_query' => array(
+		        'relation'  => 'AND',
+		        array(
+		           'key' => '_meta_judul',
+		           'value' => array(''),
+		           'compare' => 'NOT IN',
+		        ),
+		        array(
+		           'key' => '_meta_waktu',
+		           'value' => date( 'Y-m-d H:i:s' ),
+		           'compare' => '>=',
+		        )
+		   )
+		);
+		$query = new WP_Query($args);
+		$data_pelatihan = array();
+		foreach($query->posts as $post){
+		    $data_pelatihan[$post->ID] = array(
+		        'title' => get_the_title($post->ID),
+		        'judul' => get_post_meta($post->ID, '_meta_judul', true),
+		        'materi' => get_post_meta($post->ID, '_meta_materi', true),
+		        'narasumber' => get_post_meta($post->ID, '_meta_narasumber', true),
+		        'waktu' => get_post_meta($post->ID, '_meta_waktu', true),
+		        'lokasi' => get_post_meta($post->ID, '_meta_lokasi', true),
+		        'pamflet' => get_post_meta($post->ID, '_meta_pamflet', true),
+		        'deskripsi' => get_post_meta($post->ID, '_meta_deskripsi', true)
+		    );
+		}
+		return $data_pelatihan;
+	}
+
 	public function simpan_pelatihan(){
 		global $wpdb;
 		$ret = array(
@@ -292,8 +452,8 @@ class Rtik_Public {
 						if(empty($peserta->pekerjaan)){
 							$peserta->pekerjaan = get_post_meta($post_id, '_meta_pekerjaan', true);
 						}
-						if(empty($peserta->tangal_lahir)){
-							$peserta->tangal_lahir = get_post_meta($post_id, '_meta_tangal_lahir', true);
+						if(empty($peserta->tanggal_lahir)){
+							$peserta->tanggal_lahir = get_post_meta($post_id, '_meta_tanggal_lahir', true);
 						}
 						if(empty($peserta->pengalaman)){
 							$peserta->pengalaman = get_post_meta($post_id, '_meta_pengalaman', true);
@@ -350,8 +510,8 @@ class Rtik_Public {
 					if(!empty($peserta->pekerjaan)){
 						update_post_meta($post_id, '_meta_pekerjaan', $peserta->pekerjaan);
 					}
-					if(!empty($peserta->tangal_lahir)){
-						update_post_meta($post_id, '_meta_tangal_lahir', $peserta->tangal_lahir);
+					if(!empty($peserta->tanggal_lahir)){
+						update_post_meta($post_id, '_meta_tanggal_lahir', $peserta->tanggal_lahir);
 					}
 					if(!empty($peserta->pengalaman)){
 						update_post_meta($post_id, '_meta_pengalaman', $peserta->pengalaman);
@@ -372,6 +532,114 @@ class Rtik_Public {
 						update_post_meta($post_id, '_meta_website', $peserta->website);
 					}
 				}
+			} else {
+				$ret['status'] = 'error';
+				$ret['message'] = 'APIKEY tidak sesuai!';
+			}
+		}
+		die(json_encode($ret));
+	}
+
+	public function simpan_peserta_satuan(){
+		global $wpdb;
+		$ret = array(
+			'status'	=> 'success',
+			'message'	=> 'Berhasil simpan data peserta pelatihan!'
+		);
+		if (!empty($_POST)) {
+			if (!empty($_POST['api_key']) && $_POST['api_key'] == get_option( '_crb_rtik_apikey' )) {
+				if(empty($_POST['id_pelatihan'])){
+					$ret['status'] = 'error';
+					$ret['message'] = 'ID pelatihan tidak boleh kosong!';
+					die(json_encode($ret));
+				}elseif(empty($_POST['email'])){
+					$ret['status'] = 'error';
+					$ret['message'] = 'Email tidak boleh kosong!';
+					die(json_encode($ret));
+				}
+				$id_pelatihan = $_POST['id_pelatihan'];
+				$judul = trim($_POST['email']);
+				if(!empty($_POST['id_peserta'])){
+					$post_id = $_POST['id_peserta'];
+					wp_update_post(
+					    array (
+					        'ID' => $post_id,
+					        'post_title' => $judul
+					    )
+					);
+				}else{
+					$post_type = 'peserta_pelatihan';
+					$pelatihan_existing = array();
+					$get_title = get_page_by_title( $judul, OBJECT, $post_type );
+					if ($get_title == false) {
+						$options = array(
+							'nama_page' => $judul,
+							'content' => '[data_peserta_pelatihan]',
+							'post_status' => 'publish',
+							'post_type' => $post_type,
+							'show_header' => 1,
+							'no_key' => 1
+						);
+						$link = $this->functions->generatePage($options);
+						$post_id = $link['id'];
+					}else{
+						$ret['status'] = 'error';
+						$ret['message'] = 'Email sudah dipakai oleh peserta lain!';
+						die(json_encode($ret));
+					}
+				}
+				$pelatihan_existing = $wpdb->get_results($wpdb->prepare('
+					select 
+						id 
+					from rtik_peserta_pelatihan 
+					where id_pelatihan=%d
+						and id_peserta=%d',
+					$id_pelatihan,
+					$post_id,
+				), ARRAY_A);
+				$opsi = array(
+					'id_pelatihan' => $id_pelatihan,
+					'id_peserta' => $post_id
+				);
+				$waktu_daftar_ulang = date('Y-m-d H:i:s');
+				$opsi['waktu_daftar_ulang'] = $waktu_daftar_ulang;
+				$waktu_daftar = date('Y-m-d H:i:s');
+				$opsi['waktu_daftar'] = $waktu_daftar;
+				if(!empty($_POST['konfirmasi_hadir'])){
+					$opsi['konfirmasi_hadir'] = $_POST['konfirmasi_hadir'];
+				}
+				if(!empty($_POST['lolos'])){
+					$opsi['lolos'] = $_POST['lolos'];
+				}
+				if(!empty($_POST['harapan'])){
+					$opsi['harapan'] = $_POST['harapan'];
+				}
+				if(!empty($_POST['saran'])){
+					$opsi['saran'] = $_POST['saran'];
+				}
+
+				if(empty($pelatihan_existing)){
+					$wpdb->insert('rtik_peserta_pelatihan', $opsi);
+				}else{
+					$wpdb->update('rtik_peserta_pelatihan', $opsi, array(
+						'id' => $pelatihan_existing[0]['id']
+					));
+				}
+				update_post_meta($post_id, '_meta_nama', $_POST['nama']);
+				update_post_meta($post_id, '_meta_wa', $_POST['wa']);
+				update_post_meta($post_id, '_meta_email', $_POST['email']);
+				update_post_meta($post_id, '_meta_alamat', $_POST['alamat']);
+				update_post_meta($post_id, '_meta_pekerjaan', $_POST['pekerjaan']);
+				update_post_meta($post_id, '_meta_tanggal_lahir', $_POST['tanggal_lahir']);
+				update_post_meta($post_id, '_meta_pengalaman', $_POST['pengalaman']);
+				update_post_meta($post_id, '_meta_harapan', $_POST['harapan']);
+				update_post_meta($post_id, '_meta_usaha', $_POST['usaha']);
+				update_post_meta($post_id, '_meta_laptop', $_POST['laptop']);
+				update_post_meta($post_id, '_meta_saran', $_POST['saran']);
+				update_post_meta($post_id, '_meta_website', $_POST['website']);
+				update_post_meta($post_id, '_meta_sosmed', $_POST['sosmed']);
+				update_post_meta($post_id, '_meta_marketplace', $_POST['marketplace']);
+				update_post_meta($post_id, '_meta_konfirmasi_hadir', $_POST['konfirmasi_hadir']);
 			} else {
 				$ret['status'] = 'error';
 				$ret['message'] = 'APIKEY tidak sesuai!';
