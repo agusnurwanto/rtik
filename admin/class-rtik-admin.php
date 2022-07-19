@@ -185,9 +185,55 @@ class Rtik_Admin {
 	            Field::make( 'text', 'meta_pengalaman', 'Pengalaman' ),
 	            Field::make( 'text', 'meta_laptop', 'Punya Laptop' )
 	        ) );
+
+	    Container::make( 'post_meta', __( 'Detail Instruktur' ) )
+		    ->where( 'post_type', '=', 'instruktur' )
+	        ->add_fields( array(
+	            Field::make( 'text', 'meta_nama', 'Nama Instruktur' ),
+	            Field::make( 'rich_text', 'meta_foto', 'Foto' ),
+	            Field::make( 'text', 'meta_jabatan', 'Jabatan' ),
+	            Field::make( 'text', 'meta_wa', 'Nomor WA' ),
+	            Field::make( 'text', 'meta_email', 'Email' ),
+	            Field::make( 'text', 'meta_usaha', 'Usaha' ),
+	            Field::make( 'textarea', 'meta_alamat', 'Alamat' )
+	        ) );
+
+	    Container::make( 'post_meta', __( 'Kategori Pelatihan' ) )
+		    ->where( 'post_type', '=', 'kategori_pelatihan' )
+	        ->add_fields( array(
+	            Field::make( 'textarea', 'meta_kolom_peserta', 'Setting Kolom Peserta' )
+	        ) );
 	}
 
 	public function create_posttype_rtik(){
+	    register_post_type( 'instruktur',
+	        array(
+	            'labels' => array(
+	                'name' => __( 'Instruktur' ),
+	                'singular_name' => __( 'Instruktur' )
+	            ),
+	            'public' => true,
+	            'has_archive' => true,
+	            'rewrite' => array('slug' => 'instruktur'),
+	            'show_in_rest' => true,
+	            'show_in_menu' => true,
+	            'menu_position' => 5
+	        )
+	    );
+	    register_post_type( 'kategori_pelatihan',
+	        array(
+	            'labels' => array(
+	                'name' => __( 'Kategori Pelatihan' ),
+	                'singular_name' => __( 'Kategori Pelatihan' )
+	            ),
+	            'public' => true,
+	            'has_archive' => true,
+	            'rewrite' => array('slug' => 'kategori_pelatihan'),
+	            'show_in_rest' => true,
+	            'show_in_menu' => true,
+	            'menu_position' => 5
+	        )
+	    );
 	    register_post_type( 'pelatihan',
 	        array(
 	            'labels' => array(
