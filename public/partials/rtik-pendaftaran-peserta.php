@@ -16,12 +16,14 @@ $data_pelatihan = $this->get_pelatihan_aktif();
         <form>
             <div class="form-group row">
                 <label for="pelatihan" class="col-md-2 col-form-label">Judul Pelatihan</label>
-                <div class="col-md-4">
+                <div class="col-md-10">
                     <select class="form-control" name="judul-pelatihan"></select>
                 </div>
+            </div>
+            <div class="form-group row">
                 <label class="col-md-2 col-form-label">Keterangan Pelatihan</label>
                 <div class="col-md-4">
-                    <textarea class="form-control" name="detail-pelatihan" disabled></textarea>
+                    <div id="detail-pelatihan"></div>
                 </div>
             </div>
             <div class="form-group row">
@@ -138,12 +140,39 @@ $data_pelatihan = $this->get_pelatihan_aktif();
         jQuery('select[name="judul-pelatihan"]').on('change', function(){
             var post_id = jQuery(this).val();
             var data = ''
-                +'Judul: '+pelatihan[post_id].judul+'\n'
-                +'Materi: '+pelatihan[post_id].materi+'\n'
-                +'Narasumber: '+pelatihan[post_id].narasumber+'\n'
-                +'Waktu: '+pelatihan[post_id].waktu+'\n'
-                +'Lokasi: '+pelatihan[post_id].lokasi+'\n';
-            jQuery('textarea[name="detail-pelatihan"]').val(data);
+                +'<table>'
+                    +'<tr>'
+                        +'<td>Judul</td>'
+                        +'<td>:</td>'
+                        +'<td>'+pelatihan[post_id].judul+'</td>'
+                    +'</tr>'
+                    +'<tr>'
+                        +'<td>Materi</td>'
+                        +'<td>:</td>'
+                        +'<td>'+pelatihan[post_id].materi+'</td>'
+                    +'</tr>'
+                    +'<tr>'
+                        +'<td>Narasumber</td>'
+                        +'<td>:</td>'
+                        +'<td>'+pelatihan[post_id].narasumber+'</td>'
+                    +'</tr>'
+                    +'<tr>'
+                        +'<td>Waktu</td>'
+                        +'<td>:</td>'
+                        +'<td>'+pelatihan[post_id].waktu+'</td>'
+                    +'</tr>'
+                    +'<tr>'
+                        +'<td>Lokasi</td>'
+                        +'<td>:</td>'
+                        +'<td>'+pelatihan[post_id].lokasi+'</td>'
+                    +'</tr>'
+                    +'<tr>'
+                        +'<td>Pamflet</td>'
+                        +'<td>:</td>'
+                        +'<td>'+pelatihan[post_id].pamflet+'</td>'
+                    +'</tr>'
+                +'</table>';
+            jQuery('#detail-pelatihan').html(data);
             jQuery('#waktu-pelatihan').text(pelatihan[post_id].waktu);
             jQuery('#tempat-pelatihan').text(pelatihan[post_id].lokasi);
         });
