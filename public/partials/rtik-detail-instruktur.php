@@ -5,6 +5,7 @@ $url_profile = get_post_meta($post->ID, '_meta_foto', true);
 $nama = get_post_meta($post->ID, '_meta_nama', true);
 $jabatan = get_post_meta($post->ID, '_meta_jabatan', true);
 $sosmed = get_post_meta($post->ID, '_meta_sosmed', true);
+$alamat = get_post_meta($post->ID, '_meta_alamat', true);
 $deskripsi = get_post_meta($post->ID, '_meta_deskripsi', true);
 $daftar_instruktur = $this->functions->generatePage(array(
     'nama_page' => 'Daftar Instruktur',
@@ -17,7 +18,7 @@ $daftar_instruktur = $this->functions->generatePage(array(
 <!-- https://bbbootstrap.com/snippets/bootstrap-5-user-social-profile-transition-effect-79746232 -->
 <style type="text/css">
     h1.entry-title {
-        display: none;
+        display: none !important;
     }
 </style>
 <div class="container mt-5">
@@ -28,13 +29,15 @@ $daftar_instruktur = $this->functions->generatePage(array(
                     <img src="<?php echo $url_profile; ?>" width="300" class="rounded-circle">
                 </div>
                 <div class="text-center mt-3">
-                    <h5 class="mt-2 mb-0"><?php echo $jabatan; ?></h5>
-                    <?php echo $sosmed; ?>
-                    <div class="px-4 mt-1">
+                    <h1 class="mt-2 mb-0"><?php echo $nama; ?></h1>
+                    <h5><?php echo $jabatan; ?></h5>
+                    <div style="margin-bottom: 10px;">Sosial Media : <?php echo $sosmed; ?></div>
+                    <div style="margin-bottom: 10px;">Alamat : <?php echo $alamat; ?></div>
+                    <div style="margin-bottom: 25px;" class="px-4 mt-1">
                         <?php echo $deskripsi; ?>
                     </div>
                     <div class="buttons">
-                        <a href="<?php $daftar_instruktur; ?>" class="btn btn-outline-primary px-4">Daftar Instruktur</a>
+                        <a href="<?php echo $daftar_instruktur; ?>" class="btn btn-outline-primary px-4">Daftar Instruktur</a>
                     </div>
                 </div>
             </div>
