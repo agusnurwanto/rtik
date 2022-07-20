@@ -107,6 +107,13 @@ class Rtik_Admin {
 	}
 
 	public function crb_attach_rtik_options() {
+		$data_instruktur = $this->functions->generatePage(array(
+			'nama_page' => 'Daftar Instruktur',
+			'content' => '[daftar_instruktur]',
+        	'show_header' => 1,
+        	'no_key' => 1,
+			'post_status' => 'publish'
+		));
 		$data_pelatihan = $this->functions->generatePage(array(
 			'nama_page' => 'Daftar Pelatihan',
 			'content' => '[daftar_pelatihan]',
@@ -152,6 +159,7 @@ class Rtik_Admin {
 						<li><b>Input peserta pelatihan: <a target="_blank" href="'.$input_data_peserta['url'].'">'.$input_data_peserta['title'].'</a></b></li>
 						<li><b>Input data anggota RTIK: <a target="_blank" href="'.$input_anggota_rtik['url'].'">'.$input_anggota_rtik['title'].'</a></b></li>
 						<li><b>Daftar Pelatihan: <a target="_blank" href="'.$data_pelatihan['url'].'">'.$data_pelatihan['title'].'</a></b></li>
+						<li><b>Daftar Instruktur: <a target="_blank" href="'.$data_instruktur['url'].'">'.$data_instruktur['title'].'</a></b></li>
 						<li><b>Pendaftaran peserta pelatihan: <a target="_blank" href="'.$pendaftaran_peserta['url'].'">'.$pendaftaran_peserta['title'].'</a></b></li>
 	            	</ul>
             	' )
@@ -190,11 +198,14 @@ class Rtik_Admin {
 		    ->where( 'post_type', '=', 'instruktur' )
 	        ->add_fields( array(
 	            Field::make( 'text', 'meta_nama', 'Nama Instruktur' ),
-	            Field::make( 'rich_text', 'meta_foto', 'Foto' ),
+	            Field::make( 'rich_text', 'meta_deskripsi', 'Deskripsi' ),
+	            Field::make( 'image', 'meta_foto', 'Foto' )
+	            	->set_value_type( 'url' ),
 	            Field::make( 'text', 'meta_jabatan', 'Jabatan' ),
 	            Field::make( 'text', 'meta_wa', 'Nomor WA' ),
 	            Field::make( 'text', 'meta_email', 'Email' ),
 	            Field::make( 'text', 'meta_usaha', 'Usaha' ),
+	            Field::make( 'text', 'meta_sosmed', 'sosmed' ),
 	            Field::make( 'textarea', 'meta_alamat', 'Alamat' )
 	        ) );
 

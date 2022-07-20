@@ -30,7 +30,7 @@ $data_pelatihan = $this->get_pelatihan_aktif();
                 <label class="col-md-2 col-form-label">ID Peserta Jika Sudah Pernah Mendaftar</label>
                 <div class="col-md-10">
                     <select class="form-control" id="id-peserta"></select>
-                    <small class="form-text text-muted">Masukan minimal 3 huruf untuk menampilkan data. Jika data tidak muncul, berarti anda belum terdaftar. Silahkan isi data form di bawah ini.</small>
+                    <small class="form-text text-muted">Masukan minimal 3 huruf untuk menampilkan data. Jika data tidak muncul, berarti anda belum terdaftar di database. Silahkan isi data form di bawah ini.</small>
                 </div>
             </div>
             <div class="form-group row">
@@ -41,7 +41,7 @@ $data_pelatihan = $this->get_pelatihan_aktif();
                         <span class="input-group-text">@gmail.com</span>
                         <a onclick="cari_data(); return false;" href="#" class="btn btn-success" style="display: flex; align-items: center;">Cari Data</a>
                     </div>
-                    <small class="form-text text-muted">Masukan email tanpa @xxxx.xxx. Pilih nama peserta dan klik cari data jika sudah pernah mendaftar. Jika belum silahkan isi data form di bawah ini.</small>
+                    <small class="form-text text-muted">Masukan email tanpa @xxxx.xxx. Pilih nama peserta dan klik cari data jika sudah pernah mendaftar. Jika belum, silahkan isi data form di bawah ini.</small>
                 </div>
                 <label class="col-md-2 col-form-label">Nama Peserta</label>
                 <div class="col-md-4">
