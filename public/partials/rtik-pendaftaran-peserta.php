@@ -22,7 +22,7 @@ $data_pelatihan = $this->get_pelatihan_aktif();
             </div>
             <div class="form-group row">
                 <label class="col-md-2 col-form-label">Keterangan Pelatihan</label>
-                <div class="col-md-4">
+                <div class="col-md-10">
                     <div id="detail-pelatihan"></div>
                 </div>
             </div>
@@ -30,6 +30,7 @@ $data_pelatihan = $this->get_pelatihan_aktif();
                 <label class="col-md-2 col-form-label">ID Peserta Jika Sudah Pernah Mendaftar</label>
                 <div class="col-md-10">
                     <select class="form-control" id="id-peserta"></select>
+                    <small class="form-text text-muted">Masukan minimal 3 huruf untuk menampilkan data. Jika data tidak muncul, berarti anda belum terdaftar. Silahkan isi data form di bawah ini.</small>
                 </div>
             </div>
             <div class="form-group row">
@@ -40,6 +41,7 @@ $data_pelatihan = $this->get_pelatihan_aktif();
                         <span class="input-group-text">@gmail.com</span>
                         <a onclick="cari_data(); return false;" href="#" class="btn btn-success" style="display: flex; align-items: center;">Cari Data</a>
                     </div>
+                    <small class="form-text text-muted">Masukan email tanpa @xxxx.xxx. Pilih nama peserta dan klik cari data jika sudah pernah mendaftar. Jika belum silahkan isi data form di bawah ini.</small>
                 </div>
                 <label class="col-md-2 col-form-label">Nama Peserta</label>
                 <div class="col-md-4">
@@ -136,14 +138,19 @@ $data_pelatihan = $this->get_pelatihan_aktif();
         pilih_pelatihan += '<option value="'+i+'">'+pelatihan[i].title+'</option>';
     };
     jQuery(document).ready(function(){
+        jQuery('#email-konfirmasi').on('keyup', function(){
+            if(jQuery(this).val().indexOf('@') != -1){
+                alert('Tidak perlu menggunakan @ di data email, karena sudah otomatis!');
+            }
+        });
         jQuery('select[name="judul-pelatihan"]').html(pilih_pelatihan);
         jQuery('select[name="judul-pelatihan"]').on('change', function(){
             var post_id = jQuery(this).val();
             var data = ''
-                +'<table>'
+                +'<table class="table table-bordered">'
                     +'<tr>'
-                        +'<td>Judul</td>'
-                        +'<td>:</td>'
+                        +'<td style="width: 110px;">Judul</td>'
+                        +'<td style="width: 10px;">:</td>'
                         +'<td>'+pelatihan[post_id].judul+'</td>'
                     +'</tr>'
                     +'<tr>'
@@ -212,7 +219,7 @@ $data_pelatihan = $this->get_pelatihan_aktif();
         if(id_pelatihan == ''){
             return alert('Pilih pelatihan dulu!');
         }
-        var email = jQuery('#email-konfirmasi').val();
+        var email = jQuery('#email-konfirmasi').val().split('@')[0];
         if(email == ''){
             return alert('email tidak boleh kosong!')
         }else{
