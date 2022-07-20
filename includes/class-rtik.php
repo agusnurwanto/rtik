@@ -204,6 +204,8 @@ class Rtik {
 		add_shortcode('pendaftaran_peserta',  array($plugin_public, 'pendaftaran_peserta'));
 		add_shortcode('daftar_instruktur',  array($plugin_public, 'daftar_instruktur'));
 		add_shortcode('detail_instruktur',  array($plugin_public, 'detail_instruktur'));
+		add_shortcode('daftar_peserta',  array($plugin_public, 'daftar_peserta'));
+		add_shortcode('data_peserta_pelatihan',  array($plugin_public, 'data_peserta_pelatihan'));
 	}
 
 	/**

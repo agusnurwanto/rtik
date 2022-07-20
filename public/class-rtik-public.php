@@ -165,6 +165,20 @@ class Rtik_Public {
 		require_once RTIK_PLUGIN_PATH . 'public/partials/rtik-detail-instruktur.php';
 	}
 
+	public function daftar_peserta(){
+		if(!empty($_GET) && !empty($_GET['post'])){
+			return '';
+		}
+		require_once RTIK_PLUGIN_PATH . 'public/partials/rtik-daftar-peserta.php';
+	}
+
+	public function data_peserta_pelatihan(){
+		if(!empty($_GET) && !empty($_GET['post'])){
+			return '';
+		}
+		require_once RTIK_PLUGIN_PATH . 'public/partials/rtik-detail-peserta.php';
+	}
+
 	public function get_data_peserta($cek_return){
 		global $wpdb;
 		$return = array(

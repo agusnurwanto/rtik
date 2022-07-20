@@ -1,15 +1,14 @@
 <?php 
 global $post;
 global $wpdb;
-$url_profile = get_post_meta($post->ID, '_meta_foto', true);
 $nama = get_post_meta($post->ID, '_meta_nama', true);
-$jabatan = get_post_meta($post->ID, '_meta_jabatan', true);
-$sosmed = get_post_meta($post->ID, '_meta_sosmed', true);
+$usaha = get_post_meta($post->ID, '_meta_usaha', true);
+$website = get_post_meta($post->ID, '_meta_website', true);
 $alamat = get_post_meta($post->ID, '_meta_alamat', true);
-$deskripsi = get_post_meta($post->ID, '_meta_deskripsi', true);
-$daftar_instruktur = $this->functions->generatePage(array(
-    'nama_page' => 'Daftar Instruktur',
-    'content' => '[daftar_instruktur]',
+$harapan = get_post_meta($post->ID, '_meta_harapan', true);
+$daftar_peserta = $this->functions->generatePage(array(
+    'nama_page' => 'Daftar Peserta',
+    'content' => '[daftar_peserta]',
     'show_header' => 1,
     'no_key' => 1,
     'post_status' => 'publish'
@@ -25,19 +24,16 @@ $daftar_instruktur = $this->functions->generatePage(array(
     <div class="row d-flex justify-content-center">
         <div class="col-md-7">
             <div class="card p-3 py-4">
-                <div class="text-center">
-                    <img src="<?php echo $url_profile; ?>" width="300" class="rounded-circle">
-                </div>
                 <div class="text-center mt-3">
                     <h1 class="mt-2 mb-0"><?php echo $nama; ?></h1>
-                    <h5><?php echo $jabatan; ?></h5>
-                    <div style="margin-bottom: 10px;">Sosial Media : <?php echo $sosmed; ?></div>
+                    <h5><?php echo $usaha; ?></h5>
+                    <div style="margin-bottom: 10px;">Website : <?php echo $website; ?></div>
                     <div style="margin-bottom: 10px;">Alamat : <?php echo $alamat; ?></div>
                     <div style="margin-bottom: 25px;" class="px-4 mt-1">
-                        <?php echo $deskripsi; ?>
+                        Harapan : <?php echo $harapan; ?>
                     </div>
                     <div class="buttons">
-                        <a href="<?php echo $daftar_instruktur['url']; ?>" class="btn btn-outline-primary px-4">Daftar Instruktur</a>
+                        <a href="<?php echo $daftar_peserta['url']; ?>" class="btn btn-outline-primary px-4">Daftar Peserta Pelatihan</a>
                     </div>
                 </div>
             </div>
