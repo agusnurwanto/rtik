@@ -308,7 +308,7 @@ $data_pelatihan = $this->get_pelatihan_aktif();
                     jQuery('#wrap-loading').hide();
                     alert(data.message);
                     if(data.status == 'success'){
-                        // window.location = location.href;
+                        window.location = data.url_pelatihan;
                     }
                 },
                 error: function(e) {

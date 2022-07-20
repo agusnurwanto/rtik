@@ -239,11 +239,11 @@ class Rtik_Public {
 				}
 				if($return['status'] != 'error'){
 					$email_asli = get_post_meta($_POST['id_peserta'], '_meta_email', true);
+					$return['data']['nama'] = get_post_meta($_POST['id_peserta'], '_meta_nama', true);
+					$return['data']['alamat'] = get_post_meta($_POST['id_peserta'], '_meta_alamat', true);
 					if($email_asli == $_POST['email']){
 						$return['data']['id_peserta'] = $_POST['id_peserta'];
-						$return['data']['nama'] = get_post_meta($_POST['id_peserta'], '_meta_nama', true);
 						$return['data']['wa'] = get_post_meta($_POST['id_peserta'], '_meta_wa', true);
-						$return['data']['alamat'] = get_post_meta($_POST['id_peserta'], '_meta_alamat', true);
 						$return['data']['usaha'] = get_post_meta($_POST['id_peserta'], '_meta_usaha', true);
 						$return['data']['website'] = get_post_meta($_POST['id_peserta'], '_meta_website', true);
 						$return['data']['sosmed'] = get_post_meta($_POST['id_peserta'], '_meta_sosmed', true);
@@ -257,7 +257,7 @@ class Rtik_Public {
 						$return['data']['konfirmasi_hadir'] = get_post_meta($_POST['id_peserta'], '_meta_konfirmasi_hadir', true);
 					}else{
 						$return['status'] = 'error';
-						$return['message'] ='Email tidak ditemukan untuk ID peserta ini!';
+						$return['message'] ='Email tidak ditemukan untuk ID peserta ini ('.$return['data']['nama'].' | '.$return['data']['alamat'].')! Jika anda belum pernah mendaftar sebelumnya atau data belum ada di database, silahkan langsung mengisi form di bawah ini untuk mengisi data baru.';
 					}
 				}
 			}else{
@@ -551,7 +551,8 @@ class Rtik_Public {
 		global $wpdb;
 		$ret = array(
 			'status'	=> 'success',
-			'message'	=> 'Berhasil simpan data peserta pelatihan!'
+			'message'	=> 'Berhasil simpan data peserta pelatihan!',
+			'url_pelatihan' => ''
 		);
 		if (!empty($_POST)) {
 			if (!empty($_POST['api_key']) && $_POST['api_key'] == get_option( '_crb_rtik_apikey' )) {
@@ -647,6 +648,7 @@ class Rtik_Public {
 				update_post_meta($post_id, '_meta_sosmed', $_POST['sosmed']);
 				update_post_meta($post_id, '_meta_marketplace', $_POST['marketplace']);
 				update_post_meta($post_id, '_meta_konfirmasi_hadir', $_POST['konfirmasi_hadir']);
+				$ret['url_pelatihan'] = get_permalink($id_pelatihan);
 			} else {
 				$ret['status'] = 'error';
 				$ret['message'] = 'APIKEY tidak sesuai!';
