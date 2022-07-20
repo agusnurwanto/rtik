@@ -306,4 +306,20 @@ class Rtik_Admin {
 		return array();
 	}
 
+	function default_content($content, $post){
+		switch( $post->post_type ) {
+	        case 'instruktur':
+	            $content = '[detail_instruktur]';
+	        break;
+	        case 'peserta_pelatihan':
+	            $content = '[detail_peserta_pelatihan]';
+	        break;
+	        default:
+	            $content = '';
+	        break;
+	    }
+	 
+	    return $content;
+	}
+
 }

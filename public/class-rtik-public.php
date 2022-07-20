@@ -158,6 +158,13 @@ class Rtik_Public {
 		require_once RTIK_PLUGIN_PATH . 'public/partials/rtik-daftar-instruktur.php';
 	}
 
+	public function detail_instruktur(){
+		if(!empty($_GET) && !empty($_GET['post'])){
+			return '';
+		}
+		require_once RTIK_PLUGIN_PATH . 'public/partials/rtik-detail-instruktur.php';
+	}
+
 	public function get_data_peserta($cek_return){
 		global $wpdb;
 		$return = array(

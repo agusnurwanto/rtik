@@ -166,6 +166,7 @@ class Rtik {
 		$this->loader->add_action('carbon_fields_register_fields', $plugin_admin, 'crb_attach_rtik_options');
 		$this->loader->add_action('init', $plugin_admin, 'create_posttype_rtik');
 		$this->loader->add_filter('kc_us_allowed_post_types_to_generate_short_links', $plugin_admin, 'disable_shortlink', 999, 1);
+		$this->loader->add_filter('default_content', $plugin_admin, 'default_content', 10, 2);
 
 	}
 
@@ -202,6 +203,7 @@ class Rtik {
 		add_shortcode('daftar_pelatihan',  array($plugin_public, 'daftar_pelatihan'));
 		add_shortcode('pendaftaran_peserta',  array($plugin_public, 'pendaftaran_peserta'));
 		add_shortcode('daftar_instruktur',  array($plugin_public, 'daftar_instruktur'));
+		add_shortcode('detail_instruktur',  array($plugin_public, 'detail_instruktur'));
 	}
 
 	/**

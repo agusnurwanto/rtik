@@ -57,8 +57,8 @@ foreach($query->posts as $post){
     }
 </style>
 <div class="cetak">
-    <div style="padding: 10px;">
-        <h2 class="text-center">Daftar Instruktur</h2>
+    <div style="padding: 10px;" class="text-center">
+        <h2>Daftar Instruktur</h2>
         <div class="row">
         <?php echo $daftar_instruktur; ?>
         </div>
