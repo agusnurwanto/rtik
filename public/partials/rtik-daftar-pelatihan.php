@@ -49,21 +49,23 @@ foreach($query->posts as $post){
 <div class="cetak">
     <div style="padding: 10px;">
         <h2 class="text-center">Daftar Pelatihan Relawan Teknologi Informasi dan Komunikasi (RTIK) Magetan</h2>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th class="text-center" style="width: 45px;">No</th>
-                    <th class="text-center" style="width: 145px;">Judul Pelatihan</th>
-                    <th class="text-center">Materi</th>
-                    <th class="text-center">Waktu</th>
-                    <th class="text-center">Narasumber</th>
-                    <th class="text-center">Lokasi</th>
-                    <th class="text-center">Keterangan</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php echo $daftar_pelatihan; ?>
-            </tbody>
-        </table>
+        <div style="padding: 10px; min-width: 900px;">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="width: 45px;">No</th>
+                        <th class="text-center" style="width: 145px;">Judul Pelatihan</th>
+                        <th class="text-center">Materi</th>
+                        <th class="text-center">Waktu</th>
+                        <th class="text-center">Narasumber</th>
+                        <th class="text-center">Lokasi</th>
+                        <th class="text-center">Keterangan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php echo $daftar_pelatihan; ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

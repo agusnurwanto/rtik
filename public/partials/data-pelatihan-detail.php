@@ -8,6 +8,13 @@ $waktu = get_post_meta($post->ID, '_meta_waktu', true);
 $lokasi = get_post_meta($post->ID, '_meta_lokasi', true);
 $pamflet = get_post_meta($post->ID, '_meta_pamflet', true);
 $deskripsi = get_post_meta($post->ID, '_meta_deskripsi', true);
+$daftar_pelatihan = $this->functions->generatePage(array(
+    'nama_page' => 'Daftar Pelatihan',
+    'content' => '[daftar_pelatihan]',
+    'show_header' => 1,
+    'no_key' => 1,
+    'post_status' => 'publish'
+));
 $peserta_all = $wpdb->get_results('
     select 
         * 
@@ -56,59 +63,62 @@ foreach($peserta_all as $peserta){
 <div class="cetak">
     <div style="padding: 10px;">
         <h2 class="text-center"><?php echo $judul; ?></h2>
-        <table class="table table-bordered">
-            <tbody>
-                <tr>
-                    <td style="width: 150px;">Judul</td>
-                    <th><?php echo $judul; ?></th>
-                </tr>
-                <tr>
-                    <td>Materi</td>
-                    <td><?php echo $materi; ?></td>
-                </tr>
-                <tr>
-                    <td>Narasumber</td>
-                    <td><?php echo $narasumber; ?></td>
-                </tr>
-                <tr>
-                    <td>Waktu</td>
-                    <td><?php echo $waktu; ?></td>
-                </tr>
-                <tr>
-                    <td>Lokasi</td>
-                    <td><?php echo $lokasi; ?></td>
-                </tr>
-                <tr>
-                    <td>Pamflet</td>
-                    <td><?php echo $pamflet; ?></td>
-                </tr>
-                <tr>
-                    <td>Deskripsi</td>
-                    <td><?php echo $deskripsi; ?></td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <h4 class="text-center">Data Pendaftar Pelatihan</h4>
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th class="text-center" style="width: 45px;">No</th>
-                                    <th class="text-center" style="width: 145px;">Nama</th>
-                                    <th class="text-center">Usaha</th>
-                                    <th class="text-center">Website</th>
-                                    <th class="text-center">Alamat</th>
-                                    <th class="text-center">Harapan</th>
-                                    <th class="text-center">Saran</th>
-                                    <th class="text-center" style="width: 85px;">Terpilih</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php echo $table_pendaftar; ?>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div style="min-width: 900px; padding: 10px;">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td style="width: 100px;">Judul</td>
+                        <th><?php echo $judul; ?></th>
+                    </tr>
+                    <tr>
+                        <td>Materi</td>
+                        <td><?php echo $materi; ?></td>
+                    </tr>
+                    <tr>
+                        <td>Instruktur</td>
+                        <td><?php echo $narasumber; ?></td>
+                    </tr>
+                    <tr>
+                        <td>Waktu</td>
+                        <td><?php echo $waktu; ?></td>
+                    </tr>
+                    <tr>
+                        <td>Lokasi</td>
+                        <td><?php echo $lokasi; ?></td>
+                    </tr>
+                    <tr>
+                        <td>Pamflet</td>
+                        <td><?php echo $pamflet; ?></td>
+                    </tr>
+                    <tr>
+                        <td>Deskripsi</td>
+                        <td><?php echo $deskripsi; ?></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <h4 class="text-center">Data Pendaftar Pelatihan</h4>
+        <div style="min-width: 900px; padding: 10px;">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="width: 45px;">No</th>
+                        <th class="text-center" style="width: 145px;">Nama</th>
+                        <th class="text-center">Usaha</th>
+                        <th class="text-center">Website</th>
+                        <th class="text-center">Alamat</th>
+                        <th class="text-center">Harapan</th>
+                        <th class="text-center">Saran</th>
+                        <th class="text-center" style="width: 85px;">Terpilih</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php echo $table_pendaftar; ?>
+                </tbody>
+            </table>
+        </div>
+        <div class="buttons text-center">
+            <a href="<?php echo $daftar_pelatihan['url']; ?>" class="btn btn-outline-primary px-4">Daftar Pelatihan</a>
+        </div>
     </div>
 </div>

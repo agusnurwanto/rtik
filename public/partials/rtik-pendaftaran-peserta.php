@@ -61,27 +61,27 @@ $data_pelatihan = $this->get_pelatihan_aktif();
             <div class="form-group row">
                 <label class="col-md-2 col-form-label">Nama Usaha / Produk</label>
                 <div class="col-md-4">
-                    <input class="form-control" name="usaha" type="text"/>
+                    <input class="form-control" name="usaha" type="text" value="Belum punya"/>
                 </div>
                 <label class="col-md-2 col-form-label">Link Website</label>
                 <div class="col-md-4">
-                    <input class="form-control" name="website" type="text"/>
+                    <input class="form-control" name="website" type="text" value="Belum punya"/>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-md-2 col-form-label">Link Akun Sosial Media (Google Busines, Facebook, Instagram, Twitter, Tiktok, Dst).</label>
                 <div class="col-md-4">
-                    <input class="form-control" name="sosmed" type="text"/>
+                    <input class="form-control" name="sosmed" type="text" value="Belum punya"/>
                 </div>
                 <label class="col-md-2 col-form-label">Link Akun Marketplace (Shopee, Tokopedia, Bukalapak, Lazada, Dst).</label>
                 <div class="col-md-4">
-                    <input class="form-control" name="marketplace" type="text"/>
+                    <input class="form-control" name="marketplace" type="text" value="Belum punya"/>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-md-2 col-form-label">Pekerjaan</label>
                 <div class="col-md-4">
-                    <input class="form-control" name="pekerjaan" type="text"/>
+                    <input class="form-control" name="pekerjaan" type="text" value="Belum punya"/>
                 </div>
                 <label class="col-md-2 col-form-label">Tanggal Lahir</label>
                 <div class="col-md-4">
@@ -101,7 +101,7 @@ $data_pelatihan = $this->get_pelatihan_aktif();
             <div class="form-group row">
                 <label class="col-md-2 col-form-label">Pengalaman yang sudah dimiliki terkait materi pelatihan</label>
                 <div class="col-md-4">
-                    <input class="form-control" name="pengalaman" type="text"/>
+                    <input class="form-control" name="pengalaman" type="text" value="Belum punya"/>
                 </div>
                 <label class="col-md-2 col-form-label">Apakah anda punya laptop? Jika iya, harap dibawa saat pelatihan</label>
                 <div class="col-md-4">
@@ -149,33 +149,27 @@ $data_pelatihan = $this->get_pelatihan_aktif();
             var data = ''
                 +'<table class="table table-bordered">'
                     +'<tr>'
-                        +'<td style="width: 110px;">Judul</td>'
-                        +'<td style="width: 10px;">:</td>'
+                        +'<td style="width: 100px;">Judul</td>'
                         +'<td>'+pelatihan[post_id].judul+'</td>'
                     +'</tr>'
                     +'<tr>'
                         +'<td>Materi</td>'
-                        +'<td>:</td>'
                         +'<td>'+pelatihan[post_id].materi+'</td>'
                     +'</tr>'
                     +'<tr>'
-                        +'<td>Narasumber</td>'
-                        +'<td>:</td>'
+                        +'<td>Instruktur</td>'
                         +'<td>'+pelatihan[post_id].narasumber+'</td>'
                     +'</tr>'
                     +'<tr>'
                         +'<td>Waktu</td>'
-                        +'<td>:</td>'
                         +'<td>'+pelatihan[post_id].waktu+'</td>'
                     +'</tr>'
                     +'<tr>'
                         +'<td>Lokasi</td>'
-                        +'<td>:</td>'
                         +'<td>'+pelatihan[post_id].lokasi+'</td>'
                     +'</tr>'
                     +'<tr>'
                         +'<td>Pamflet</td>'
-                        +'<td>:</td>'
                         +'<td>'+pelatihan[post_id].pamflet+'</td>'
                     +'</tr>'
                 +'</table>';
