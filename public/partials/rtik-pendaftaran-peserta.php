@@ -9,11 +9,23 @@ $data_pelatihan = $this->get_pelatihan_aktif();
     .hide, nav.post-navigation, header.entry-header {
         display: none;
     }
+    .list-none {
+        margin: 0;
+    }
+    .list-none li {
+        list-style: none;
+    }
 </style>
 <div class="cetak">
     <div style="padding: 10px;">
         <h2 class="text-center">Pendaftaran Peserta Pelatihan</h2>
         <form>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label">Video Panduan Cara Mendaftar</label>
+                <div class="col-md-10">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/4xlIzg2ORp8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
             <div class="form-group row">
                 <label for="pelatihan" class="col-md-2 col-form-label">Judul Pelatihan</label>
                 <div class="col-md-10">
@@ -24,6 +36,15 @@ $data_pelatihan = $this->get_pelatihan_aktif();
                 <label class="col-md-2 col-form-label">Keterangan Pelatihan</label>
                 <div class="col-md-10">
                     <div id="detail-pelatihan"></div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label">Jenis Pendaftaran</label>
+                <div class="col-md-10">
+                    <ul class="list-none">
+                        <li><label><input type="radio" name="jenis_pendaftaran" value="1" checked> Daftar ulang jika sebelumnya sudah terdaftar</label></li>
+                        <li><label><input type="radio" name="jenis_pendaftaran" value="2"> Daftar baru untuk yang belum pernah mendaftar sebelumnya</label></li>
+                    </ul>
                 </div>
             </div>
             <div class="form-group row">
@@ -39,7 +60,7 @@ $data_pelatihan = $this->get_pelatihan_aktif();
                     <input class="form-control text-right" id="email-konfirmasi" type="email"/>
                     <div class="input-group-append">
                         <span class="input-group-text">@gmail.com</span>
-                        <a onclick="cari_data(); return false;" href="#" class="btn btn-success" style="display: flex; align-items: center;">Cari Data</a>
+                        <a onclick="cari_data(); return false;" href="#" class="btn btn-success cari-data" style="display: flex; align-items: center;">Cari Data</a>
                     </div>
                     <small class="form-text text-muted">Masukan email tanpa @xxxx.xxx. Pilih nama peserta dan klik cari data jika sudah pernah mendaftar. Jika belum, silahkan isi data form di bawah ini.</small>
                 </div>
@@ -99,7 +120,7 @@ $data_pelatihan = $this->get_pelatihan_aktif();
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-md-2 col-form-label">Pengalaman yang sudah dimiliki terkait materi pelatihan</label>
+                <label class="col-md-2 col-form-label">Pengalaman yang sudah dimiliki terkait materi <b><span id="materi-pelatihan"></span></b></label>
                 <div class="col-md-4">
                     <input class="form-control" name="pengalaman" type="text" value="Belum punya"/>
                 </div>
@@ -137,7 +158,23 @@ $data_pelatihan = $this->get_pelatihan_aktif();
     for (var i in pelatihan){
         pilih_pelatihan += '<option value="'+i+'">'+pelatihan[i].title+'</option>';
     };
+
+    function update_jenis_pendaftaran(){
+        console.log('tes klik');
+        var jenis = jQuery('input[name="jenis_pendaftaran"]:checked').val();
+        if(jenis == 1){
+            jQuery('#id-peserta').closest('.form-group.row').show();
+            jQuery('.cari-data').show();
+        }else{
+            jQuery('#id-peserta').closest('.form-group.row').hide();
+            jQuery('.cari-data').hide();
+        }
+    }
+
     jQuery(document).ready(function(){
+        jQuery('input[name="jenis_pendaftaran"]').on('click', function(){
+            update_jenis_pendaftaran();
+        });
         jQuery('#email-konfirmasi').on('keyup', function(){
             if(jQuery(this).val().indexOf('@') != -1){
                 alert('Tidak perlu menggunakan @ di data email, karena sudah otomatis!');
@@ -174,6 +211,7 @@ $data_pelatihan = $this->get_pelatihan_aktif();
                     +'</tr>'
                 +'</table>';
             jQuery('#detail-pelatihan').html(data);
+            jQuery('#materi-pelatihan').html(pelatihan[post_id].materi);
             jQuery('#waktu-pelatihan').text(pelatihan[post_id].waktu);
             jQuery('#tempat-pelatihan').text(pelatihan[post_id].lokasi);
         });
