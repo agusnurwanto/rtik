@@ -15,6 +15,26 @@ $daftar_pelatihan = $this->functions->generatePage(array(
     'no_key' => 1,
     'post_status' => 'publish'
 ));
+$edit_data = false;
+$kolom_edit = '';
+$kolom_style = 'min-width: 900px;';
+if(is_user_logged_in()){
+    $user_id = get_current_user_id();
+    if($this->functions->user_has_role($user_id, 'administrator')){
+        $edit_data = true;
+        $kolom_style = 'min-width: 2500px;';
+        $kolom_edit = '
+            <th class="text-center">Laptop</th>
+            <th class="text-center" style="width: 250px;">Email</th>
+            <th class="text-center" style="width: 150px;">WA</th>
+            <th class="text-center">Sosial Media</th>
+            <th class="text-center">Akun Marketplace</th>
+            <th class="text-center">Pekerjaan</th>
+            <th class="text-center">Tanggal Lahir</th>
+            <th class="text-center">Konfirmasi Hadir</th>
+        ';
+    }
+}
 $peserta_all = $wpdb->get_results('
     select 
         * 
@@ -31,21 +51,46 @@ foreach($peserta_all as $peserta){
     $meta_email = get_post_meta($peserta['id_peserta'], '_meta_email', true);
     $meta_usaha = get_post_meta($peserta['id_peserta'], '_meta_usaha', true);
     $meta_website = get_post_meta($peserta['id_peserta'], '_meta_website', true);
+    $meta_sosmed = get_post_meta($peserta['id_peserta'], '_meta_sosmed', true);
+    $meta_marketplace = get_post_meta($peserta['id_peserta'], '_meta_marketplace', true);
     // $nama_peserta .= ' | '.$meta_email;
     $terpilih = '';
     if($peserta['lolos'] == 1){
         $terpilih = 'Iya';
+    }
+    $data_edit = '';
+    if($edit_data){
+        $meta_wa = get_post_meta($peserta['id_peserta'], '_meta_wa', true);
+        $meta_laptop = get_post_meta($peserta['id_peserta'], '_meta_laptop', true);
+        $meta_pekerjaan = get_post_meta($peserta['id_peserta'], '_meta_pekerjaan', true);
+        $meta_tanggal_lahir = get_post_meta($peserta['id_peserta'], '_meta_tanggal_lahir', true);
+        $meta_konfirmasi_hadir = get_post_meta($peserta['id_peserta'], '_meta_konfirmasi_hadir', true);
+        $data_edit = '
+            <td>'.$meta_laptop.'</td>
+            <td>'.$meta_email.'</td>
+            <td>'.$meta_wa.'</td>
+            <td>'.$meta_sosmed.'</td>
+            <td>'.$meta_marketplace.'</td>
+            <td>'.$meta_pekerjaan.'</td>
+            <td>'.$meta_tanggal_lahir.'</td>
+            <td>'.$meta_konfirmasi_hadir.'</td>
+        ';
     }
     $table_pendaftar .= '
         <tr id="'.$peserta['id'].'" id_peserta="'.$peserta['id_peserta'].'" id_pelatihan="'.$peserta['id_pelatihan'].'">
             <td class="text-center">'.$no.'</td>
             <td>'.$nama_peserta.'</td>
             <td>'.$meta_usaha.'</td>
-            <td>'.$meta_website.'</td>
+            <td>
+                Website: '.$meta_website.'
+                <br>Sosmed: '.$meta_sosmed.'
+                <br>Marketplace: '.$meta_marketplace.'
+            </td>
             <td>'.$alamat_peserta.'</td>
             <td>'.$peserta['harapan'].'</td>
             <td>'.$peserta['saran'].'</td>
             <td class="text-center">'.$terpilih.'</td>
+            '.$data_edit.'
         </tr>';
 }
 ?>
@@ -61,7 +106,7 @@ foreach($peserta_all as $peserta){
     }
 </style>
 <div class="cetak">
-    <div style="padding: 10px;">
+    <div style="padding: 10px; overflow: auto;">
         <h2 class="text-center"><?php echo $judul; ?></h2>
         <div style="min-width: 900px; padding: 10px;">
             <table class="table table-bordered">
@@ -98,7 +143,7 @@ foreach($peserta_all as $peserta){
             </table>
         </div>
         <h4 class="text-center">Data Pendaftar Pelatihan</h4>
-        <div style="min-width: 900px; padding: 10px;">
+        <div style="padding: 10px; <?php echo $kolom_style; ?>">
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -110,6 +155,7 @@ foreach($peserta_all as $peserta){
                         <th class="text-center">Harapan</th>
                         <th class="text-center">Saran</th>
                         <th class="text-center" style="width: 85px;">Terpilih</th>
+                    <?php echo $kolom_edit; ?>
                     </tr>
                 </thead>
                 <tbody>

@@ -23,7 +23,7 @@ $data_pelatihan = $this->get_pelatihan_aktif();
             <div class="form-group row">
                 <label class="col-md-2 col-form-label">Video Panduan Cara Mendaftar</label>
                 <div class="col-md-10">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/4xlIzg2ORp8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe src="https://drive.google.com/file/d/1IvzQH44GMitNpURCpUPkMNrEDQtYxXas/preview" width="640" height="480"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </div>
             <div class="form-group row">

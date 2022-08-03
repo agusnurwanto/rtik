@@ -637,6 +637,7 @@ class Rtik_Public {
 				if(!empty($_POST['konfirmasi_hadir'])){
 					$opsi['konfirmasi_hadir'] = $_POST['konfirmasi_hadir'];
 				}
+				$_POST['lolos'] = 1;
 				if(!empty($_POST['lolos'])){
 					$opsi['lolos'] = $_POST['lolos'];
 				}
